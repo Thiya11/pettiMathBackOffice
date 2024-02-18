@@ -7,7 +7,7 @@ const port     = process.env.PORT;
 const mongoose = require('mongoose');
 const uri      = process.env.DB_URI;
 mongoose.connect(uri);
-const { registerNewUser, loginUser } = require('./actions/users/user-crud');
+const { registerNewUser, loginUser,logoutUser,currentUserDetails } = require('./actions/users/user-crud');
 app.use(bodyParser.json())
 
 app.post('/api/register', async (req,res)=>{
@@ -16,6 +16,14 @@ app.post('/api/register', async (req,res)=>{
 
 app.post('/api/login', async(req,res)=> {
     loginUser(req,res)
+})
+
+app.post('/api/logout', async(req,res)=>{
+    logoutUser(req,res)
+})
+
+app.get('/api/userDetails', async(req,res)=>{
+    currentUserDetails(req,res)
 })
 
 app.listen(port,()=>{
